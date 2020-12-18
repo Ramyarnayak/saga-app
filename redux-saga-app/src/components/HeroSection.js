@@ -3,6 +3,7 @@ import '../App.css';
 import { Button } from './Button';
 import './HeroSection.css';
 import video1 from './videos/video-1.mp4'
+import NewsPage from './pages/NewsPage'
 function HeroSection() {
   return (
     <div className='hero-container'>
@@ -25,6 +26,7 @@ function HeroSection() {
         >
           WATCH TRAILER <i className='far fa-play-circle' />
         </Button>
+        <NewsPage/>
       </div>
     </div>
   );
