@@ -51,28 +51,35 @@
 
 
 
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { HashRouter as Router, Route } from 'react-router-dom';
 
+import './App.css';
 
-import React from 'react'
-import Footer from './movie/Footer'
-import Navbar1 from './movie/Navbar1'
-import './App.css'
-import Loading from './movie/Loading'
+import Navbar from './movie/components/layout/Navbar';
+import Footer from './movie/components/layout/Footer';
+
+import Landing from './movie/components/home/Landing';
+import Movie from './movie/components/home/Movie';
+
 import store from './movie/store2';
-import { Provider } from 'react-redux'
 
-function App() {
-
-  return (
-    <div>
+class App extends Component {
+  render() {
+    return (
       <Provider store={store}>
-      <Navbar1/>
-      <Loading/>
-      <Footer/>
+        <Router>
+          <div>
+            <Navbar />
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/movie/:id" component={Movie} />
+            <Footer />
+          </div>
+        </Router>
       </Provider>
-     
-    </div>
-  )
+    );
+  }
 }
 
-export default App
+export default App;

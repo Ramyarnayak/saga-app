@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
-import { searchMovie } from './searchActions'
+import { searchMovie, fetchMovies,   setLoading} from './searchActions'
 import {connect} from 'react-redux'
 
 export class FormSearch extends Component {
 
-    onChange = e=>{
-      this.props.searchMovie(e.target.value);
+   ChangeHandle = e =>{
+
+      this.props.searchMovie([e.target.value])
+    }
+
+    onSubmit = e =>{ 
+        e.preventDefault();
+        this.props.fetchMovies(this.props.text)
+        this.props.setLoading();
     }
     render() {
         return (
@@ -15,13 +22,15 @@ export class FormSearch extends Component {
                     <h1 className="display-4 mb-3">
                         <i className="fa fa-search"/> Search for a movie, TVseries..
                        </h1> 
-                       <form id="searchform">
+                       <form id="searchform"
+                       onSubmit ={this.onSubmit}>
                             <input 
                             type="text"
                             className="form-control"
                             name="searchText"
+                            // value={this.text}
                             placeholder="Search Movies, TV Series ..."
-                            onChange={this.onChange}
+                            onChange={this.ChangeHandle}
                             />
                             <button type="submit" className="btn btn-primary btn-bg mt-3">
                                 Search
@@ -35,9 +44,9 @@ export class FormSearch extends Component {
         );
     }
 }
-const mapStateatoProps = state => ({
+const mapStateToProps = state => ({
     text : state.movies.text
 })
 
 
-export default connect (mapStateatoProps, (searchMovie))(FormSearch);
+export default connect(mapStateToProps,{searchMovie, fetchMovies, setLoading })(FormSearch);
